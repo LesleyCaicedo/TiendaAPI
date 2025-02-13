@@ -1,0 +1,499 @@
+﻿@model EntityLayer.Models.CustodioReportoModel
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte Custodia Venta </title>
+    <style>
+        @@page {
+        margin-top: 100px;
+        margin-bottom: 43px;
+        }
+
+        .CuadroTotales {
+        border: 1.5px solid #000000;
+        border-radius: 10px;
+        width: 590px;
+        padding: 5px 10px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        white-space: nowrap;
+        flex-shrink: 0; /* Evita que el cuadro se reduzca */
+        }
+
+        .TextSimple {
+        font-size: 8px;
+        }
+
+        body {
+        font-family: Arial, sans-serif;
+        }
+
+        thead {
+        display: table-header-group;
+        }
+
+        tbody {
+        display: table-row-group;
+        }
+
+        tr {
+        page-break-inside: avoid;
+        }
+
+        table {
+        width: 100%;
+        border-collapse: collapse;
+        /* margin-top: 20px; */
+        }
+
+        table, th, td {
+        border: none;
+        border-collapse: collapse;
+        }
+
+        th {
+        position: relative;
+        border-bottom: 1px solid #000000;
+        }
+
+        th::after {
+        content: "";
+        position: absolute;
+        bottom: -5px; 
+        left: 0;
+        width: 100%;
+        border-bottom: 3px solid #000000;
+        }
+
+        td {
+        border-bottom: 1px solid transparent;
+        }
+
+        th, td {
+        padding: 1px;
+        text-align: center;
+        }
+
+        .fila-texto {
+        text-align: left;
+        font-weight: bold;
+        background-color: transparent;
+        padding: 10px 5px;
+        font-size: 14px;
+        }
+
+        .textoGrande {
+        font-size: 14px;
+        text-align: left;
+        font-family: Arial, sans-serif;
+        padding-top: 20px;
+        }
+
+        .textoMediano {
+        font-size: 12px;
+        text-align: left;
+        font-family: Arial, sans-serif;
+        padding: 5px 30px;
+        }
+
+        .textoPequeño {
+        font-size: 10px;
+        font-family: Arial, sans-serif;
+        padding: 4px;
+        }
+
+        .negrita {
+        font-weight: bold;
+        }
+
+        .cursiva {
+        font-style: italic;
+        }
+
+        .subrayado{
+        text-decoration: underline;
+        }
+
+        .info {
+        font-size: 11px;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        }
+
+        .info span:last-child {
+        text-align: right;
+        flex: 1;
+        }
+
+        .contenedor-flex {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+        }
+
+        .fondo {
+        border-radius: 5px;
+        background-color: lightgray;
+        padding-right: 215px;
+        padding-top: 5px;
+        padding-left: 5px;
+        padding-bottom: 5px;
+        }
+
+        .totalFinal{
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        width: 590px;
+        border-radius: 5px;
+        background-color: lightgray;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        }
+
+        .d-flex {
+        display: flex;
+        justify-content: space-between;
+        margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th class="TextSimple negrita" style="width: 25px;">Fecha Ingreso</th>
+                    <th class="TextSimple negrita" style="width: 65px;">Fecha Recompra</th>
+                    <th class="TextSimple negrita" style="width: 180px;">Emisor</th>
+                    <th class="TextSimple negrita" style="width: 45px;">Titulo</th>
+                    <th class="TextSimple negrita" style="width: 255px;">Referencia</th>
+                    <th class="TextSimple negrita" style="width: 20px;">M</th>
+                    <th class="TextSimple negrita" style="width: 60px;">Fecha Emision</th>
+                    <th class="TextSimple negrita" style="width: 40px;">Fecha Vcto.</th>
+                    <th class="TextSimple negrita" style="width: 60px;">Cantidad</th>
+                    <th class="TextSimple negrita" style="width: 70px;">V. Nom. Total/ Sdo. Amortizar</th>
+                    <th class="TextSimple negrita" style="width: 70px;">Monto Negociado</th>
+                    <th class="TextSimple negrita" style="width: 70px;">Valor en Custodia</th>
+                    <th class="TextSimple negrita" style="width: 60px;">%Dscto /Precio</th>
+                    <th class="TextSimple negrita" style="width: 60px;">Precio Mercado</th>
+                    <th class="TextSimple negrita" style="width: 35px;">No. Oper.</th>
+                    <th class="TextSimple negrita" style="width: 15px;">Tipo Gart</th>
+                </tr>
+                <tr>
+                    <td colspan="16" style="height: 5px; border: none;"></td> <!-- Fila espaciadora -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="15" class="textoGrande negrita">
+                        <span class="fondo">
+                            CASA DE VALORES: (@Model.Cod_casa) @Model.casaNombre
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="15" class="textoGrande cursiva subrayado" style="padding-left: 15px;">GARANTIAS ADICIONALES</td>
+                </tr>
+                @{
+                    decimal totalGeneralExigidoGA = 0;
+                    decimal totalGeneralCustodiaGA = 0;
+                    decimal totalGeneralExigidoMO = 0;
+                    decimal totalGeneralCustodiaMO = 0;
+                    decimal totalCasaExigido = 0;
+                    decimal totalCasaCustodia = 0;
+                    decimal totalEfectivoExigido = 0;
+                    decimal totalEfectivoCustodia = 0;
+                    decimal totalTitulosExigido = 0;
+                    decimal totalTitulosCustodia = 0;
+                }
+
+                @foreach (var portafolio in Model.listaClientesPortafolio)
+                {
+                    <tr>
+                        <td colspan="15" class="textoMediano negrita">Portafolio:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@portafolio.TipoPortafolio.ToUpper()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@portafolio.CICliente</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="textoMediano cursiva">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Custodia en :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@portafolio.Nombre_oficina.ToUpper()</td>
+                    </tr>
+
+                    decimal totalClienteExigido = 0;
+                    decimal totalClienteCustodia = 0;
+
+                    @foreach (var item in Model.itemNegociacion)
+                    {
+                        @if (item.Docum.Equals("GA") && item.CI_cliente.Equals(portafolio.CICliente))
+                        {
+
+                            decimal vCustodia = string.IsNullOrWhiteSpace(item.V_custodia)
+                            ? 0
+                            : Convert.ToDecimal(item.V_custodia.Replace(",", "").Trim(), System.Globalization.CultureInfo.InvariantCulture);
+
+                            totalClienteCustodia += vCustodia;
+
+                            totalEfectivoCustodia += item.Nombre_titulo.Equals("EFECTIVO") ? Decimal.Parse(item.V_custodia) : 0;
+
+                            <tr>
+                                <td class="TextSimple">@item.F_ingreso.Replace("-", "/")</td>
+                                <td class="TextSimple">@string.Empty</td>
+                                <td class="TextSimple">@item.Nombre_emisor</td>
+                                <td class="TextSimple">@item.Nombre_titulo</td>
+                                <td class="TextSimple">@item.Referencia</td>
+                                <td class="TextSimple">@item.M</td>
+                                <td class="TextSimple">@item.F_emision</td>
+                                <td class="TextSimple">@item.F_vcto</td>
+                                <td class="TextSimple">@item.Cantidad</td>
+                                <td class="TextSimple">@item.Asv_nominal_total</td>
+                                <td class="TextSimple">@item.Monto_exigido</td>
+                                <td class="TextSimple">@vCustodia.ToString("N2")</td>
+                                <td class="TextSimple">@item.Tasa_descuento</td>
+                                <td class="TextSimple">@item.Precio</td>
+                                <td class="TextSimple">@item.No_operacion</td>
+                                <td class="TextSimple">@item.Tipogarantia</td>
+                            </tr>
+                        }
+                    }
+
+                    totalGeneralExigidoGA += totalClienteExigido;
+                    totalGeneralCustodiaGA += totalClienteCustodia;
+
+                    <tr>
+                        <td colspan="12">
+                            <div class="contenedor-flex" style="margin-bottom: 10px; justify-content: flex-end;">
+                                <div class="textoPequeño cursiva">Total Cliente:</div>
+                                <div class="CuadroTotales textoPequeño negrita">
+                                    <div class="contenedor-flex">
+                                        <div class="d-flex" style=" width: 130px;">
+                                            <div>Exigido:</div>
+                                            <div>@totalClienteExigido.ToString("N2")</div>
+                                        </div>
+                                        <div class="d-flex" style="padding-left: 35px; width: 130px;">
+                                            <div>Custodia:</div>
+                                            <div>@totalClienteCustodia.ToString("N2")</div>
+                                        </div>
+                                        <div class="d-flex" style="padding-left: 40px; width: 190px;">
+                                            <div>Superávit/Déficit:</div>
+                                            <div>@((totalClienteCustodia - totalClienteExigido).ToString("N2"))</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                }
+
+                <!-- TOTAL GENERAL -->
+                <tr>
+                    <td colspan="12">
+                        <div class="contenedor-flex" style="justify-content: flex-end;">
+                            <div class="textoPequeño cursiva">TOTAL GARANTIA ADICIONALES:</div>
+                            <div class="CuadroTotales textoPequeño negrita">
+                                <div class="contenedor-flex" style=" border-bottom: 1px solid #000000;">
+                                    <div class="d-flex" style=" width: 130px;">
+                                        <div>Exigido:</div>
+                                        <div>@totalGeneralExigidoGA.ToString("N2")</div>
+                                    </div>
+                                    <div class="d-flex" style="padding-left: 35px; width: 130px;">
+                                        <div>Custodia:</div>
+                                        <div>@totalGeneralCustodiaGA.ToString("N2")</div>
+                                    </div>
+                                    <div class="d-flex" style="padding-left: 40px; width: 190px;">
+                                        <div>Superávit/Déficit:</div>
+                                        <div>@((totalGeneralCustodiaGA - totalGeneralExigidoGA).ToString("N2"))</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="12">
+                        <div class="contenedor-flex" style="justify-content: flex-end;">
+                            <div style="flex-direction: column;">
+                                <div class="textoPequeño cursiva">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total Efectivo:</div>
+                                <div class="textoPequeño cursiva">Total Titulos Valores:</div>
+                            </div>
+                            <div class="CuadroTotales textoPequeño negrita">
+                                <div style="flex-direction: column;">
+                                    <div class="contenedor-flex">
+                                        <div class="d-flex" style="width: 130px;">
+                                            <div>Exigido:</div>
+                                            <div>@totalEfectivoExigido.ToString("N2")</div>
+                                        </div>
+                                        <div class="d-flex" style="padding-left: 35px; width: 130px;">
+                                            <div>Custodia:</div>
+                                            <div>@totalEfectivoCustodia.ToString("N2")</div>
+                                        </div>
+                                        <div class="d-flex" style="padding-left: 40px; width: 190px;">
+                                            <div>Superávit/Déficit:</div>
+                                            <div>@((totalEfectivoCustodia - totalEfectivoExigido).ToString("N2"))</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="contenedor-flex" style="margin-top: 5px;">
+                                        <div class="d-flex" style=" width: 130px;">
+                                            <div>Exigido:</div>
+                                            <div>@((totalTitulosExigido = totalGeneralExigidoGA - totalEfectivoExigido).ToString("N2"))</div>
+                                        </div>
+                                        <div class="d-flex" style="padding-left: 35px; width: 130px;">
+                                            <div>Custodia:</div>
+                                            <div>@((totalTitulosCustodia = totalGeneralCustodiaGA - totalEfectivoCustodia).ToString("N2"))</div>
+                                        </div>
+                                        <div class="d-flex" style="padding-left: 40px; width: 190px;">
+                                            <div>Superávit/Déficit:</div>
+                                            <div>@((totalTitulosCustodia - totalTitulosExigido).ToString("N2"))</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="15" class="textoGrande cursiva subrayado" style="padding-left: 15px;">MATERIA DE LA OPERACION</td>
+                </tr>
+                @foreach (var portafolio in Model.listaClientesPortafolio)
+                {
+                    <tr>
+                        <td colspan="15" class="textoMediano negrita">Portafolio:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@portafolio.TipoPortafolio.ToUpper()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@portafolio.CICliente</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="textoMediano cursiva">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Custodia en :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@portafolio.Nombre_oficina.ToUpper()</td>
+                    </tr>
+
+                    decimal totalClienteExigido = 0;
+                    decimal totalClienteCustodia = 0;
+
+                    @foreach (var item in Model.itemNegociacion)
+                    {
+                        @if (item.Docum.Equals("MO"))
+                        {
+
+                            decimal vCustodia = string.IsNullOrWhiteSpace(item.V_custodia)
+                            ? 0
+                            : Convert.ToDecimal(item.V_custodia.Replace(",", "").Trim(), System.Globalization.CultureInfo.InvariantCulture);
+
+                            decimal Precio = string.IsNullOrWhiteSpace(item.Precio)
+                            ? 0
+                            : Convert.ToDecimal(item.Precio.Replace(",", "").Trim(), System.Globalization.CultureInfo.InvariantCulture);
+
+
+                            totalClienteCustodia += vCustodia;
+
+
+                            <tr>
+                                <td class="TextSimple">@item.F_ingreso.Replace("-", "/")</td>
+                                <td class="TextSimple">@item.F_recompra.Replace("-", "/")</td>
+                                <td class="TextSimple">@item.Nombre_emisor</td>
+                                <td class="TextSimple">@item.Nombre_titulo</td>
+                                <td class="TextSimple">@item.Referencia</td>
+                                <td class="TextSimple">@item.M</td>
+                                <td class="TextSimple">@item.F_emision</td>
+                                <td class="TextSimple">@item.F_vcto</td>
+                                <td class="TextSimple">@item.Cantidad</td>
+                                <td class="TextSimple">@item.Asv_nominal_total</td>
+                                <td class="TextSimple">@item.Monto_exigido</td>
+                                <td class="TextSimple">@vCustodia.ToString("N2")</td>
+                                <td class="TextSimple">@item.Tasa_descuento</td>
+                                <td class="TextSimple">@Precio.ToString("N4")</td>
+                                <td class="TextSimple">@item.No_operacion</td>
+                                <td class="TextSimple">@item.Tipogarantia</td>
+                            </tr>
+                        }
+                    }
+
+                    totalGeneralExigidoMO += totalClienteExigido;
+                    totalGeneralCustodiaMO += totalClienteCustodia;
+
+                    <tr>
+                        <td colspan="12">
+                            <div class="contenedor-flex" style="margin-bottom: 10px; justify-content: flex-end;">
+                                <div class="textoPequeño cursiva">Total Cliente:</div>
+                                <div class="CuadroTotales textoPequeño negrita">
+                                    <div class="contenedor-flex">
+                                        <div class="d-flex" style=" width: 130px;">
+                                            <div>Exigido:</div>
+                                            <div>@totalClienteExigido.ToString("N2")</div>
+                                        </div>
+                                        <div class="d-flex" style="padding-left: 35px; width: 130px;">
+                                            <div>Custodia:</div>
+                                            <div>@totalClienteCustodia.ToString("N2")</div>
+                                        </div>
+                                        <div class="d-flex" style="padding-left: 40px; width: 190px;">
+                                            <div>Superávit/Déficit:</div>
+                                            <div>@((totalClienteCustodia - totalClienteExigido).ToString("N2"))</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                <!-- TOTAL GENERAL -->
+                <tr>
+                    <td colspan="12">
+                        <div class="contenedor-flex" style="margin-bottom: 10px; justify-content: flex-end;">
+                            <div class="textoPequeño cursiva">TOTAL MATERIA DE OPERACIÓN:</div>
+                            <div class="CuadroTotales textoPequeño negrita">
+                                <div class="contenedor-flex" style=" border-bottom: 1px solid #000000;">
+                                    <div class="d-flex" style=" width: 130px;">
+                                        <div>Exigido:</div>
+                                        <div>@totalGeneralExigidoMO.ToString("N2")</div>
+                                    </div>
+                                    <div class="d-flex" style="padding-left: 35px; width: 130px;">
+                                        <div>Custodia:</div>
+                                        <div>@totalGeneralCustodiaMO.ToString("N2")</div>
+                                    </div>
+                                    <div class="d-flex" style="padding-left: 40px; width: 190px;">
+                                        <div>Superávit/Déficit:</div>
+                                        <div>@((totalGeneralCustodiaMO - totalGeneralExigidoMO).ToString("N2"))</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="16" style="height: 30px; border: none;"></td> <!-- Fila espaciadora -->
+                </tr>
+
+                <tr>
+                    <td colspan="12">
+                        <div class="contenedor-flex" style="margin-bottom: 10px; justify-content: flex-end;">
+                            <div class="textoPequeño cursiva">TOTAL CASA DE VALORES: </div>
+                            <div class="totalFinal textoPequeño negrita">
+                                <div class="contenedor-flex">
+                                    <div class="d-flex" style=" width: 130px;">
+                                        <div>Exigido:</div>
+                                        <div>@((totalCasaExigido = totalGeneralExigidoGA + totalGeneralExigidoMO).ToString("N2"))</div>
+                                    </div>
+                                    <div class="d-flex" style="padding-left: 35px; width: 130px;">
+                                        <div>Custodia:</div>
+                                        <div>@((totalCasaCustodia = totalGeneralCustodiaGA + totalGeneralCustodiaMO).ToString("N2"))</div>
+                                    </div>
+                                    <div class="d-flex" style="padding-left: 40px; width: 190px;">
+                                        <div>Superávit/Déficit:</div>
+                                        <div>@((totalCasaCustodia - totalCasaExigido).ToString("N2"))</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

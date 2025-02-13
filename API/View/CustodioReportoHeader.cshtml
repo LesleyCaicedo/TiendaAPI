@@ -1,0 +1,166 @@
+﻿@model EntityLayer.Models.CustodioReportoModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * {
+            font-size: 12px;
+        }
+
+        .encabezado {
+            /* justify-content: space-between; */
+            gap: 30px;
+            align-items: center;
+            padding: 0.5px 50px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            text-align: center;
+            display: flex;
+            width: 100%;
+        }
+
+        .columna-izquierda {
+            width: 240px;
+            display: flex;
+            flex-direction: column;
+            font-family: "Times New Roman", sans-serif;
+            text-align: left;
+        }
+
+        .columna-centro {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .columna-derecha {
+            width: 100px;
+            display: flex;
+            justify-content: right;
+            margin-bottom: 12px;
+            padding-left: 8.5%;
+        }
+
+        .CuadroPrincipal {
+            border: 1.5px solid #000000;
+            padding: 5px;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            font-family: "Times New Roman", sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .CuadroDatos {
+            border: 1.5px solid #000000;
+            padding: 3px;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: "Arial", sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .TextCompañia {
+            font-size: 20px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .TextNegrita {
+            margin-top: 3px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .TextNormal {
+            margin-top: 7px;
+            font-size: 14px;
+        }
+
+        .TextSimple {
+            font-size: 14px;
+        }
+
+        .info-container {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            align-items: flex-start;
+            margin: 3px;
+        }
+
+        .info {
+            /* font-size: 11px; */
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .info span {
+            font-size: 10px;
+        }
+
+        .label {
+            text-align: left;
+            flex: 1;
+        }
+
+        .info span:last-child {
+            text-align: right;
+            flex: 1;
+        }
+        
+        .logo{
+            height: 45px;
+            width: 240px;
+            padding-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="encabezado">
+        <div class="columna-izquierda">
+            <span class="logo" style="content: url('@Model.logo.ToString()');"></span>
+            <div class="TextSimple" style="padding-top: 10px; font-size: 12px;">Fecha ultima valoracion:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.sfechaValoracionUltima</div>
+        </div>
+
+        <div class="columna-centro">
+            <div class="CuadroPrincipal" style="text-align: center;">
+                <div class="TextCompañia">@Model.casaNombre</div>
+                <div class="TextNegrita">Documentos en Custodia por Casa de Valores</div>
+                <div class="TextNormal">Reporte Bursátil - Reportado</div>
+            </div>
+        </div>
+
+        <div class="columna-derecha">
+            <div class="CuadroDatos">
+                <div class="info-container">
+                    <div class="info">
+                        <span class="label">Nro. Pág:</span>
+                        <div class="pageNumber" style="font-size: 12px;"></div>
+                    </div>
+                    <div class="info">
+                        <span class="label">Fecha:</span>
+                        <span>@Model.fechaHora.Fecha</span>
+                    </div>
+                    <div class="info">
+                        <span class="label">Hora:</span>
+                        <span>@Model.fechaHora.Hora</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

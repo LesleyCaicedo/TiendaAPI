@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantilla HTML B�sica</title>
+</head>
+<body>
+    <header class="encabezado">
+        <div class="columna izquierda">
+            <img src="ruta-de-tu-imagen.jpg" alt="Imagen del encabezado" />
+            <div class="TextSimple">Fecha ultima valoracion: </div>
+        </div>
+
+        <div class="columna centro">
+            <div class="CuadroPrincipal" style="text-align: center;">
+                <div class="TextCompa�ia">ACCITLAN</div>
+                <div class="TextNegrita">Documentos en Custodia por Casa de Valores</div>
+                <div class="TextNormal">Reporte Burs�til - Reportado</div>
+            </div>
+        </div>
+
+        <div class="columna derecha">
+            <div class="CuadroDatos">
+                <div class="info-container">
+                    <div class="info">
+                        <span class="label">Nro. P�g:</span>
+                        <span id="pagina"></span>
+                    </div>
+                    <div class="info">
+                        <span class="label">Fecha:</span>
+                        <span id="fecha"></span>
+                    </div>
+                    <div class="info">
+                        <span class="label">Hora:</span>
+                        <span id="hora"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="content">
+        <table border="1">
+            <tr>
+                <th class="textoPeque�o negrita" style="width: 25px;">Nombre</th>
+                <th class="textoPeque�o negrita" style="width: 75px;">Fecha Recompra</th>
+                <th class="textoPeque�o negrita" style="width: 175px;">Emisor</th>
+                <th class="textoPeque�o negrita" style="width: 45px;">Titulo</th>
+                <th class="textoPeque�o negrita" style="width: 225px;">Referencia</th>
+                <th class="textoPeque�o negrita" style="width: 20px;">M</th>
+                <th class="textoPeque�o negrita" style="width: 60px;">Fecha Emision</th>
+                <th class="textoPeque�o negrita" style="width: 40px;">Fecha Vcto.</th>
+                <th class="textoPeque�o negrita" style="width: 60px;">Cantidad</th>
+                <th class="textoPeque�o negrita" style="width: 80px;">V. Nom. Total/ Sdo. Amortizar</th>
+                <th class="textoPeque�o negrita" style="width: 75px;">Monto Negociado</th>
+                <th class="textoPeque�o negrita" style="width: 75px;">Valor en Custodia</th>
+                <th class="textoPeque�o negrita" style="width: 60px;">%Dscto /Precio</th>
+                <th class="textoPeque�o negrita" style="width: 60px;">Precio Mercado</th>
+                <th class="textoPeque�o negrita" style="width: 40px;">No. Oper.</th>
+                <th class="textoPeque�o negrita" style="width: 15px;">Tipo Gart</th>
+            </tr>
+            <tr>
+                <td colspan="15" class="textoGrande negrita">BOLSA DE VALORES: </td>
+            </tr>
+            <tr>
+                <td colspan="15" class="textoGrande cursiva">GARANTIAS ADICIONALES</td>
+            </tr>
+            <tr>
+                <td colspan="15" class="textoMediano negrita">Portafolio: </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="textoPeque�o cursiva">Custodia en: </td>
+            </tr>
+            <tr>
+                <td class="TextSimple">31012025</td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple">EFECTIVO</td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple">D</td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple">2.333.22</td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple">2.333.22</td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple">2.333.22</td>
+                <td class="TextSimple">E</td>
+            </tr>
+            <tr>
+                <td class="TextSimple">31012025</td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple">EFECTIVO</td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple">D</td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple">2.333.22</td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple">2.333.22</td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple"></td>
+                <td class="TextSimple">2.333.22</td>
+                <td class="TextSimple">E</td>
+            </tr>
+
+            <tr>
+                <td colspan="12">
+                    <div class="contenedor-flex">
+                        <div class="textoPeque�o negrita">Total Cliente</div>
+                        <div class="CuadroTotales textoPeque�o negrita">
+                            <div class="contenedor-flex">
+                                <div>Exigido:</div>
+                                <div>100.00</div>
+                                <div>Custodia:</div>
+                                <div>40,000.00</div>
+                                <div>Super�vit/D�ficit:</div>
+                                <div>40,000.00</div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="15" class="textoGrande cursiva">GARANTIAS ADICIONALES</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <footer>
+        <div class="CuadroTipoGarantia">
+            <div class="TextSimple">
+                Tipo de Garant�a: (E) Espec�fica (G) General
+            </div>
+        </div>
+
+        <div class="CuadroTipoGarantia">
+            <div class="TextSimple">
+                (*) Papel Vencido
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

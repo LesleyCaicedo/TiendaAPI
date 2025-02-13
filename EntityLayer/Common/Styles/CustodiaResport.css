@@ -1,0 +1,249 @@
+@page {
+    size: A4 landscape;
+    margin: 100px 50px 50px 50px;
+}
+
+header {
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5px 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    text-align: center;
+    display: flex;
+}
+
+.columna.izquierda {
+    width: 170px;
+    display: flex;
+    flex-direction: column;
+    font-family: "Times New Roman", sans-serif;
+    text-align: left;
+}
+
+    .columna.izquierda img {
+        margin-bottom: 10px;
+        width: 100px;
+        height: auto;
+    }
+
+.columna.centro {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.columna.derecha {
+    width: 10%;
+    display: flex;
+    justify-content: right;
+}
+
+.CuadroPrincipal {
+    border: 1.5px solid #000000;
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    font-family: "Times New Roman", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.CuadroDatos {
+    border: 1.5px solid #000000;
+    padding: 3px;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: "Arial", sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.CuadroTipoGarantia {
+    border: 1.5px solid #000000;
+    border-radius: 25px;
+    width: auto;
+    max-width: 250px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    font-family: "Arial", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.CuadroTotales {
+    border: 1.5px solid #000000;
+    border-radius: 10px;
+    width: 670px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+    flex-shrink: 0; /* Evita que el cuadro se reduzca */
+}
+
+.TextCompañia {
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.TextNegrita {
+    margin-top: 3px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.TextNormal {
+    margin-top: 7px;
+    font-size: 14px;
+}
+
+.TextSimple {
+    font-size: 11px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    padding: 10px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 15px;
+    box-sizing: border-box;
+}
+
+.content {
+    margin-top: 100px;
+    margin-bottom: 60px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: none;
+    border-collapse: collapse;
+}
+
+th {
+    position: relative;
+    border-bottom: 1px solid #000000;
+}
+
+    th::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        border-bottom: 2px solid #000000;
+    }
+
+td {
+    border-bottom: 1px solid transparent;
+}
+
+th, td {
+    padding: 1px;
+    text-align: center;
+}
+
+input[type="text"] {
+    padding: 8px;
+    margin: 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.fila-texto {
+    text-align: left;
+    font-weight: bold;
+    background-color: transparent;
+    padding: 10px 5px;
+    font-size: 14px;
+}
+
+.textoGrande {
+    font-size: 14px;
+    text-align: left;
+    font-family: Arial, sans-serif;
+    padding-top: 20px;
+}
+
+.textoMediano {
+    font-size: 12px;
+    text-align: left;
+    font-family: Arial, sans-serif;
+    padding: 5px 30px;
+}
+
+.textoPequeño {
+    font-size: 10px;
+    font-family: Arial, sans-serif;
+    padding: 4px;
+}
+
+.negrita {
+    font-weight: bold;
+}
+
+.cursiva {
+    font-style: italic;
+}
+
+.info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.info {
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.label {
+    text-align: left;
+    flex: 1;
+}
+
+.info span:last-child {
+    text-align: right;
+    flex: 1;
+}
+
+.contenedor-flex {
+    display: flex;
+    justify-content: flex-end; /* Alinea el contenido a la derecha */
+    gap: 10px; /* Espacio entre los elementos */
+    width: 100%;
+}

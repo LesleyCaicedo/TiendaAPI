@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "kwV8HSiWgvM=",
+  "success": true,
+  "projectFilePath": "C:\\APIs\\Pruebas\\TiendaAPI\\EntityLayer\\EntityLayer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\viamatica\\.nuget\\packages\\riok.mapperly\\4.0.0\\riok.mapperly.4.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
